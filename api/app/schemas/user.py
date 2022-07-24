@@ -1,14 +1,18 @@
+from typing import List, Optional
 from pydantic import BaseModel
 
 
-class GetUserListResponseSchema(BaseModel):
+class GetUserResponseSchema(BaseModel):
     id: int
     email: str
     nickname: str
+    telegram_id: Optional[int]
 
-    class Config:
-        orm_mode = True
-
+class GetUserPaginatedSchema(BaseModel):
+    per_page: int
+    page: int
+    data: List[GetUserResponseSchema]
+    has_next: bool
 
 class CreateUserRequestSchema(BaseModel):
     email: str

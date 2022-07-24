@@ -1,62 +1,63 @@
 from typing import Optional, List, Union, NoReturn
 
-from sqlalchemy import or_, select
-
-from app.models import User
-from core.db import Transactional, Propagation, session
+from bson.objectid import ObjectId
+from app.schemas import (
+    GetUserResponseSchema,
+    GetUserPaginatedSchema,
+    CreateUserRequestSchema
+)
+from core.db import user_db_client
 from core.exceptions import (
     PasswordDoesNotMatchException,
     DuplicateEmailOrNicknameException,
+    UserDoesNotExist
 )
 
 
 class UserService:
     def __init__(self):
         pass
+    
+    async def get_user(
+        self,
+        user_id: str
+    ) -> GetUserResponseSchema:
+        user = user_db_client.paginate_find(
+                {"_id": ObjectId(user_id)})
+        return user[0]
 
     async def get_user_list(
         self,
-        limit: int = 12,
-        prev: Optional[int] = None,
-    ) -> List[User]:
-        query = select(User)
+        limit: Optional[int] = -1,
+        page: Optional[int] = None,
+    ) -> GetUserPaginatedSchema:
+        if not page:
+            page = 1
+        users = user_db_client.paginate_find({}, page, limit)
+        return users
 
-        if prev:
-            query = query.where(User.id < prev)
-
-        if limit > 12:
-            limit = 12
-
-        query = query.limit(limit)
-        result = await session.execute(query)
-        return result.scalars().all()
-
-    @Transactional(propagation=Propagation.REQUIRED)
     async def create_user(
         self, email: str, password1: str, password2: str, nickname: str
-    ) -> Union[User, NoReturn]:
+    ) -> Union[GetUserResponseSchema, NoReturn]:
         if password1 != password2:
             raise PasswordDoesNotMatchException
 
-        result = await session.execute(
-            select(User).where(or_(User.email == email, User.nickname == nickname))
-        )
-        is_exist = result.scalars().first()
+        is_exist = user_db_client.find({"email": email})
         if is_exist:
             raise DuplicateEmailOrNicknameException
 
-        user = User(email=email, password=password1, nickname=nickname)
-        session.add(user)
+        user = user_db_client.insert({"email": email,
+            "password": password1, "nickname": nickname,
+            "is_admin": False})
 
         return user
 
-    async def is_admin(self, user_id: int) -> bool:
-        result = await session.execute(select(User).where(User.id == user_id))
-        user = result.scalars().first()
-        if not user:
-            return False
+    async def is_admin(self, user_id: str) -> bool:
+        result = user_db_client.find({"_id": ObjectId(user_id)})
+        if not result:
+            raise UserDoesNotExist
 
-        if user.is_admin is False:
+        if result[0].is_admin is False:
             return False
 
         return True

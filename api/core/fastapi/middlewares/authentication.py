@@ -15,6 +15,10 @@ class AuthBackend(AuthenticationBackend):
     async def authenticate(
         self, conn: HTTPConnection
     ) -> Tuple[bool, Optional[CurrentUser]]:
+        """
+            Authentication middleware.
+            Verify jwt authorization token.
+        """
         current_user = CurrentUser()
         authorization: str = conn.headers.get("Authorization")
         if not authorization:

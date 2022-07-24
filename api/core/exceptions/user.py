@@ -12,3 +12,8 @@ class DuplicateEmailOrNicknameException(CustomException):
     code = 400
     error_code = ErrorCode.User.DuplicateEmailOrNickname
     message = "duplicate email or nickname"
+
+class UserDoesNotExist(CustomException):
+    code = 404
+    error_code = ErrorCode.User.DuplicateEmailOrNickname
+    message = "user does not exists"

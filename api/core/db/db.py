@@ -5,7 +5,10 @@ from pymongo.results import (
         InsertOneResult, DeleteResult
     )
 
-from .config import MONGO_DATABASE_URI, PER_PAGE
+from core.config import  config
+
+MONGO_DATABASE_URI = config.MONGO_DATABASE_URI
+PER_PAGE = config.PER_PAGE
 
 class MongoDBClient:
     def __init__(self, database: str, collection: str) -> None:
@@ -90,7 +93,7 @@ class MongoDBClient:
             :param per_page: per page.
             :param projection: projection.
         """
-        if per_page == -1:
+        if per_page == -1 or per_page > PER_PAGE:
             per_page = PER_PAGE
         skip = per_page * (page-1)
         data = self.find(filter, projection=projection, skip=skip,
