@@ -1,5 +1,8 @@
+import dotenv
 import uvicorn
 from core.config import config
+
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 if __name__ == "__main__":
     uvicorn.run(

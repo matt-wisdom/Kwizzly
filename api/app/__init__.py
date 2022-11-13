@@ -1,13 +1,13 @@
-from fastapi import FastAPI, Request, Depends
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-
 from app.views import home_router
 from app.views.v1 import sub_router as v1_router
+from app.views.ws import ws
 from core.config import config
 from core.exceptions import CustomException
 from core.fastapi.dependencies import Logging
-from core.fastapi.middlewares import AuthenticationMiddleware, AuthBackend
+from core.fastapi.middlewares import AuthBackend, AuthenticationMiddleware
+from fastapi import Depends, FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 
 def init_cors(app: FastAPI) -> None:
@@ -22,7 +22,7 @@ def init_cors(app: FastAPI) -> None:
 
 def init_routers(app: FastAPI) -> None:
     app.include_router(home_router)
-    app.include_router(v1_router, prefix="/api/v1", tags=["User"])
+    app.include_router(v1_router, prefix="/api", tags=["User", "Quiz"])
 
 
 def init_listeners(app: FastAPI) -> None:
@@ -73,3 +73,4 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
+app.mount("/game", ws)

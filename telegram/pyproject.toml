@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "quizly_tgbot"
+version = "0.1.0"
+description = "Telegram backend for quizly."
+authors = ["cRyp70s <matthewwisdom11@gmail.com>"]
+license = "MIT"
+repository = ""
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.28.1"
+Telethon = "^1.24.0"
+beautifulsoup4 = "^4.11.1"
+lxml = "^4.9.1"
+SQLAlchemy = "^1.4.36"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

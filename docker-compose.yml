@@ -1,0 +1,87 @@
+version: '3.4'
+services:
+  api:
+    build:
+      context: api/
+      dockerfile: api/docker/api/Dockerfile
+    container_name: api
+    hostname: api
+    restart: always
+    volumes:
+      - $PWD/api:/home
+    ports:
+      - "8080:8080"
+    networks:
+      - kwizzly
+    depends_on:
+      - db
+      - redis
+  
+  telegram:
+    build:
+      context: telegram/
+      dockerfile: telegram/docker/tg/Dockerfile
+    restart: always
+    volumes:
+      - $PWD/telegram:/home
+    networks:
+      - kwizzly
+    depends_on:
+      - db
+      - redis
+  
+  tg-ws:
+    build:
+      context: telegram/
+      dockerfile: telegram/docker/ws/Dockerfile
+    restart: always
+    volumes:
+      - $PWD/telegram:/home
+    networks:
+      - kwizzly
+    depends_on:
+      - db
+      - redis
+  
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - cache:/data
+    networks:
+      - kwizzly
+
+  db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - kwizzly
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - kwizzly
+    
+networks:
+  kwizzly:
+    driver: bridge
+  
+
+volumes:
+  cache:
+    driver: local
+  db:
+    driver: local

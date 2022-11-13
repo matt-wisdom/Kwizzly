@@ -1,4 +1,4 @@
-from .authentication import AuthenticationMiddleware, AuthBackend
+from .authentication import AuthBackend, AuthenticationMiddleware
 
 __all__ = [
     "AuthenticationMiddleware",

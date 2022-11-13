@@ -1,13 +1,13 @@
 from typing import Optional, Tuple
 
 import jwt
+from core.config import config
 from starlette.authentication import AuthenticationBackend
 from starlette.middleware.authentication import (
     AuthenticationMiddleware as BaseAuthenticationMiddleware,
 )
 from starlette.requests import HTTPConnection
 
-from core.config import config
 from ..schemas import CurrentUser
 
 
@@ -16,8 +16,8 @@ class AuthBackend(AuthenticationBackend):
         self, conn: HTTPConnection
     ) -> Tuple[bool, Optional[CurrentUser]]:
         """
-            Authentication middleware.
-            Verify jwt authorization token.
+        Authentication middleware.
+        Verify jwt authorization token.
         """
         current_user = CurrentUser()
         authorization: str = conn.headers.get("Authorization")

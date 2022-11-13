@@ -1,5 +1,5 @@
 from .logging import Logging
-from .permission import PermissionDependency, IsAuthenticated, IsAdmin
+from .permission import IsAdmin, IsAuthenticated, PermissionDependency
 
 __all__ = [
     "Logging",

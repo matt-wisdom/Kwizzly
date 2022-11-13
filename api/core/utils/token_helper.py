@@ -1,15 +1,16 @@
 from datetime import datetime, timedelta
-from typing import Union, NoReturn
+from typing import NoReturn, Union
 
 import jwt
-
 from core.config import config
 from core.exceptions import DecodeTokenException, ExpiredTokenException
+
+default_token_expires = config.DEFAULT_TOKEN_EXPIRES
 
 
 class TokenHelper:
     @staticmethod
-    def encode(payload: dict, expire_period: int = 3600) -> str:
+    def encode(payload: dict, expire_period: int = default_token_expires) -> str:
         token = jwt.encode(
             payload={
                 **payload,
@@ -17,7 +18,7 @@ class TokenHelper:
             },
             key=config.JWT_SECRET_KEY,
             algorithm=config.JWT_ALGORITHM,
-        ).decode("utf8")
+        )
         return token
 
     @staticmethod

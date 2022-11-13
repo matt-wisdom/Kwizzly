@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import Any, Callable, Type
 
-from core.helpers.cache.base import BaseKeyMaker, BaseBackend
+from core.helpers.cache.base import BaseBackend, BaseKeyMaker
 
 
 class Cacheable:

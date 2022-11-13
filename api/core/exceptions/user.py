@@ -13,7 +13,14 @@ class DuplicateEmailOrNicknameException(CustomException):
     error_code = ErrorCode.User.DuplicateEmailOrNickname
     message = "duplicate email or nickname"
 
+
 class UserDoesNotExist(CustomException):
     code = 404
     error_code = ErrorCode.User.DuplicateEmailOrNickname
     message = "user does not exists"
+
+
+class InvalidPasswordException(CustomException):
+    code = 401
+    error_code = ErrorCode.User.PasswordDoesNotMatch
+    message = "password invalid"
