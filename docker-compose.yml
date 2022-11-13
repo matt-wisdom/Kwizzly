@@ -3,7 +3,7 @@ services:
   api:
     build:
       context: api/
-      dockerfile: api/docker/api/Dockerfile
+      dockerfile: docker/api/Dockerfile
     container_name: api
     hostname: api
     restart: always
@@ -20,7 +20,7 @@ services:
   telegram:
     build:
       context: telegram/
-      dockerfile: telegram/docker/tg/Dockerfile
+      dockerfile: docker/tg/Dockerfile
     restart: always
     volumes:
       - $PWD/telegram:/home
@@ -33,7 +33,7 @@ services:
   tg-ws:
     build:
       context: telegram/
-      dockerfile: telegram/docker/ws/Dockerfile
+      dockerfile: docker/ws/Dockerfile
     restart: always
     volumes:
       - $PWD/telegram:/home
