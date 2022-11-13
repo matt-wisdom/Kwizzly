@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+h1 {
+    @apply font-medium text-2xl;
+}
+
+.base {
+    @apply bg-gray-200;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.green {
+    @apply text-green-600;
+}
+
+.center {
+    @apply flex flex-col justify-center items-center;
+}
+
+.hover-exp:hover {
+    transform: scale(120%);
+}
+
+body > div {
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    
+}
+
+button {
+    @apply cursor-pointer;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+  }
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: white;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-200;
+    border-radius: 100vh;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-green-200;
+}
+
+.tooltip-container:hover .tooltip{
+    @apply visible z-50;
+}
+
+.tooltip {
+    @apply invisible absolute;
+  }
+
+.tooltip-black {
+    @apply py-1 px-3 rounded-sm bg-black text-white
+  }
+
+.modal-container {
+    @apply center w-screen h-screen bg-opacity-40;
+    @apply bg-gray-200 fixed top-0 z-50	left-0 px-2;
+}
+
+.modal {
+    @apply sm:m-0 w-full h-5/6 lg:h-4/6 md:w-2/6;
+    @apply bg-white shadow-md;
+}
+
+textarea {
+    @apply custom-scrollbar;
+}
+
+.fileupload > div {
+    @apply center;
+}
+
+.file-preview-img {
+    max-width: 3.5rem !important;
+    max-height: 3.5rem !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    top: -30% !important;
+    left: 8% !important;
+}
