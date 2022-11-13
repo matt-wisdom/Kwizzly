@@ -1,7 +1,6 @@
 import asyncio
 import time
 
-import async_timeout
 from helper.redis import RedisBackend
 from quizly_tg import messages
 from quizly_tg.api import QuizlyAPI
