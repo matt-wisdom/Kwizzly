@@ -20,7 +20,7 @@
 
 <script>
 import get_api from '../service/api.js'
-import base_url from '../service/base_url.js'
+import base_url from '../configs/base_url.js'
 import CreateQuizIndex from '../components/CreateQuizIndex.vue'
 import CreateQuizQuestions from "../components/CreateQuizQuestions.vue"
 export default {

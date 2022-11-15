@@ -34,7 +34,7 @@
 </template>
 <script>
 import get_api from '../service/api.js'
-import base_url from "../service/base_url.js";
+import base_url from '../configs/base_url.js';
 export default {
   name: "LeaderBoard",
   created() {

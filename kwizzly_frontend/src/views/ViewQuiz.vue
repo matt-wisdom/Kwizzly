@@ -33,7 +33,7 @@
 
 <script>
 import get_api from '../service/api.js'
-import base_url from '../service/base_url.js'
+import base_url from '../configs/base_url.js'
 import ModalComponent from "../components/ModalComponent.vue"
 import DeleteQuiz from '../components/DeleteQuiz.vue'
 export default {

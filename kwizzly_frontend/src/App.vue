@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import base_url from './service/base_url.js'
+import base_url from './configs/base_url.js'
 import NavBar from './components/NavBar.vue'
 import FooterComponent from './components/Footer.vue'
 import ModalComponent from "./components/ModalComponent.vue"

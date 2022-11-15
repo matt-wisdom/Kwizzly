@@ -26,7 +26,7 @@
     </div>
 </template>
 <script>
-import base_url from '../service/base_url.js'
+import base_url from '../configs/base_url.js'
 import SinglePlayerQuestion from '../components/SinglePlayerQuestion.vue'
 import ModalComponent from "../components/ModalComponent.vue"
 import SinglePlayerQuizResult from '../components/SinglePlayerQuizResult.vue'

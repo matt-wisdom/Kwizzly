@@ -6,7 +6,6 @@
                 <div class="px-4">
                     <label>
                     Question:<br>
-                    <!-- <input  type="text" class="outline-0 border h-9 w-full"> -->
                     <textarea v-model="question" required class="outline-0 border h-12 w-full px-4" cols="30" rows="14"></textarea>
                     </label>
                 </div>
